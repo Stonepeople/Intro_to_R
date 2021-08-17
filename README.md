@@ -1,2 +1,8 @@
-# -NISData-Training
-Video and files introducing R - produced for the European Journalism Centre
+# EJC_intro
+Introduction to R for journalists prepared for the European Journalism Centre in December 2020. 
+
+The training is intended to combine an introductory video with material the learner can follow along afterwards.
+
+The video is [here](https://youtu.be/iUbxpQ9mjEg). It lasts 73 minutes and includes explanations of why journalists would use R, and the basics of the RStudio IDE. 
+
+
