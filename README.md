@@ -6,10 +6,13 @@ The training is intended to combine an introductory video with material the lear
 The video is [here]([https://youtu.be/iUbxpQ9mjEg).](https://youtu.be/iUbxpQ9mjEg).)
 It lasts 73 minutes and includes explanations of why journalists would use R, and the basics of the RStudio IDE.
 
+# Introduction
 [Intro]([https://youtu.be/iUbxpQ9mjEg?t=0)](https://youtu.be/iUbxpQ9mjEg?t=0)) is the general introduction explaining the usefulness of R
 
+# Chapter 1 - RStudio 
 [Chapter 1]([https://youtu.be/iUbxpQ9mjEg?t=91)](https://youtu.be/iUbxpQ9mjEg?t=91)) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
 
+# Chapter 2 - setting up (continued)
 [Chapter 2]([https://youtu.be/iUbxpQ9mjEg?t=499)](https://youtu.be/iUbxpQ9mjEg?t=499)) continues the setting up of R and RStudio and explains how to set up a project, and why it is best practice to do so.
 
 If you plan to follow along, all the data you need for the session is [here]([https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip).](https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip)
@@ -21,6 +24,7 @@ It's easiest if you follow the instructions for creating a project and then save
 From here on we are writing and running code.
 The code used in each session is set out below, and you are welcome to copy it into your scripts, but it's usually best to type it yourself, rather than pasting it, so you start to build up some muscle memory of writing the code you will use a lot in interrogating your data.
 
+# Chapter 3 - importing data
 [Chapter 3]([https://youtu.be/iUbxpQ9mjEg?t=1406)](https://youtu.be/iUbxpQ9mjEg?t=1406)) is where we start importing the data and exploring it.
 
 ```{r}
@@ -41,11 +45,9 @@ unique(fac$countryCode)
 fac %>% count(countryCode, sort = TRUE)
 
 fac %>% count(parentCompanyName, sort = TRUE)
-
-
 ```
 
-
+# Chapter 4 analysing your data
 [Chapter 4]([https://youtu.be/iUbxpQ9mjEg?t=1798)](https://youtu.be/iUbxpQ9mjEg?t=1798)) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
 
 ```{r eval=FALSE, include = TRUE}
@@ -57,7 +59,7 @@ E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
 
 ```
 
-
+# Chapter 5 filtering (continued)
 [Chapter 5]([https://youtu.be/iUbxpQ9mjEg?t=2672)](https://youtu.be/iUbxpQ9mjEg?t=2672)) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
 
 ```{r eval=FALSE, include=TRUE}
@@ -93,7 +95,7 @@ NON_CO2_sector_list <- rel %>%
   arrange(desc(total_release))
 ```
 
-
+# Chapter 6 Enhance your data by joining two dataframes and adding a new calculation
 In [Chapter 6]([https://youtu.be/iUbxpQ9mjEg?t=3154)](https://youtu.be/iUbxpQ9mjEg?t=3154)) we join two dataframes together to allow us to do some more detailed analysis. 
 
 Let's begin by creating a list of industrial sectors which are NOT emitting CO2. Here's the code - see if you can work out what each line is doing - 
@@ -114,7 +116,7 @@ We group by countryCode, pollutanName and mainActivityName and then create a new
 
 Now, before we do a new example - we need to cover something which we didn't have time to put in the video.  
 
-# Cha 6A = using lists and %in% -------------------------------------------
+# Chapter 6A = using lists and %in% to do more complex filters
 
 By now you're probably getting into the swing of copying the code we're using, and so we didn't record this as a video demonstration. 
 
@@ -230,7 +232,7 @@ Instead of using `%in%` to find matches in a list, because we're using `str_dete
 This way of using `str_detect` to find any string in a list is a bit confusing at first - it took me a long time to find it. The code you need to write to do what seems quite a simple task is easy to forget if you don't use it every day - and that makes it a good example of how, the more you use R, the more snippets of useful code will end up in your own script library. So, if you vaguely remember using `collapse` at some point, you can find it again, maybe weeks later, by using `Edit > Find in Files` and setting RStudio to find `collapse` in any of your R scripts. Your saved scripts will normally only contain code that worked, so as you use R, you are building up a library of code which works - and can easily be found and used again - you just need to remember a key word that RStudio's search engine can find - so, although you might forget `collapse` you can still call up all the times you used `str_detect` and then find one use which jogs your memory. I use this all the time, often finding code I haven't used for many months, but which is sitting there waiting for me to look for it and use it again!
 
 
-
+# Chapter 7 making elegant graphics with ggplot
 [Chapter 7]([https://youtu.be/iUbxpQ9mjEg?t=3442)](https://youtu.be/iUbxpQ9mjEg?t=3442)) starts to show you the power and flexibility of `ggplot` so you can begin to create graphs.
 
 This chapter is self-contained, in that you don't have to re-run all the code we've used before. If you're starting here, you need to read in your two main dataframes:
@@ -307,5 +309,5 @@ ggplot(rel2) +
 but in this case, we added a line `theme(axis.text.x = element_text(angle = 90, hjust = 1))` which turns the labels to an angle of 90 degrees so that they don't end up written over each other in a jumbled mess. To find that piece of code I did a google search which included the words - "ggplot axis label text angle"; there were several similar answers and I just had to copy and paste them into my script until one worked. Once that's in your saved scripts, as noted above, you can always find it using `Edit > Find in Files` with a search for `angle =`. 
 This is how one learns new tricks in R - and unlike Excel, you don't need to watch an instructional video: a line of code will often be all you need. And when you have time, you stop to look at exactly what's going on in the code you're using - then you can try varying some of the instructions to see what happens. 
 
-##Help
+# Chapter 8 Getting Help
 This brings us neatly to [Chapter8]([https://youtu.be/iUbxpQ9mjEg?t=3818)](https://youtu.be/iUbxpQ9mjEg?t=3818)) where is advice on how to get help, within R itself, and on the web in general.
