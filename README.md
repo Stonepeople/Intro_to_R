@@ -1,4 +1,4 @@
-##Introduction to R for journalists 
+## Introduction to R for journalists 
 (prepared for the European Journalism Centre in December 2020)
 
 The training is intended to combine an introductory video with material the learner can follow along during the session and later.
@@ -7,13 +7,13 @@ The video is [here]([https://youtu.be/iUbxpQ9mjEg).](https://youtu.be/iUbxpQ9mjE
 It lasts 73 minutes and includes explanations of why journalists would use R, and the basics of the RStudio IDE.
 
 # Introduction
-[Intro]([https://youtu.be/iUbxpQ9mjEg?t=0)](https://youtu.be/iUbxpQ9mjEg?t=0)) is the general introduction explaining the usefulness of R
+  [Intro]([https://youtu.be/iUbxpQ9mjEg?t=0)](https://youtu.be/iUbxpQ9mjEg?t=0)) is the general introduction explaining the usefulness of R
 
 # Chapter 1 - RStudio 
-[Chapter 1]([https://youtu.be/iUbxpQ9mjEg?t=91)](https://youtu.be/iUbxpQ9mjEg?t=91)) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
+  [Chapter 1]([https://youtu.be/iUbxpQ9mjEg?t=91)](https://youtu.be/iUbxpQ9mjEg?t=91)) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
 
 # Chapter 2 - setting up (continued)
-[Chapter 2]([https://youtu.be/iUbxpQ9mjEg?t=499)](https://youtu.be/iUbxpQ9mjEg?t=499)) continues the setting up of R and RStudio and explains how to set up a project, and why it is best practice to do so.
+  [Chapter 2]([https://youtu.be/iUbxpQ9mjEg?t=499)](https://youtu.be/iUbxpQ9mjEg?t=499)) continues the setting up of R and RStudio and explains how to set up a project, and why it is best practice to do so.
 
 If you plan to follow along, all the data you need for the session is [here]([https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip).](https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip)
 
@@ -25,7 +25,7 @@ From here on we are writing and running code.
 The code used in each session is set out below, and you are welcome to copy it into your scripts, but it's usually best to type it yourself, rather than pasting it, so you start to build up some muscle memory of writing the code you will use a lot in interrogating your data.
 
 # Chapter 3 - importing data
-[Chapter 3]([https://youtu.be/iUbxpQ9mjEg?t=1406)](https://youtu.be/iUbxpQ9mjEg?t=1406)) is where we start importing the data and exploring it.
+  [Chapter 3]([https://youtu.be/iUbxpQ9mjEg?t=1406)](https://youtu.be/iUbxpQ9mjEg?t=1406)) is where we start importing the data and exploring it.
 
 ```{r}
 library(tidyverse)
@@ -48,7 +48,7 @@ fac %>% count(parentCompanyName, sort = TRUE)
 ```
 
 # Chapter 4 analysing your data
-[Chapter 4]([https://youtu.be/iUbxpQ9mjEg?t=1798)](https://youtu.be/iUbxpQ9mjEg?t=1798)) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
+  [Chapter 4]([https://youtu.be/iUbxpQ9mjEg?t=1798)](https://youtu.be/iUbxpQ9mjEg?t=1798)) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
 
 ```{r eval=FALSE, include = TRUE}
 
@@ -60,7 +60,7 @@ E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
 ```
 
 # Chapter 5 filtering (continued)
-[Chapter 5]([https://youtu.be/iUbxpQ9mjEg?t=2672)](https://youtu.be/iUbxpQ9mjEg?t=2672)) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
+  [Chapter 5]([https://youtu.be/iUbxpQ9mjEg?t=2672)](https://youtu.be/iUbxpQ9mjEg?t=2672)) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
 
 ```{r eval=FALSE, include=TRUE}
 rel <- read_csv("releases.csv")
