@@ -3,19 +3,19 @@
 
 The training is intended to combine an introductory video with material the learner can follow along during the session and later.
 
-The video is [here]([https://youtu.be/iUbxpQ9mjEg).](https://youtu.be/iUbxpQ9mjEg).)
+The video is [here]([https://youtu.be/iUbxpQ9mjEg)
 It lasts 73 minutes and includes explanations of why journalists would use R, and the basics of the RStudio IDE.
 
 # Introduction
-  [Intro]([https://youtu.be/iUbxpQ9mjEg?t=0)](https://youtu.be/iUbxpQ9mjEg?t=0)) is the general introduction explaining the usefulness of R
+  [Intro](https://youtu.be/iUbxpQ9mjEg?t=0) is the general introduction explaining the usefulness of R
 
 # Chapter 1 - RStudio 
-  [Chapter 1]([https://youtu.be/iUbxpQ9mjEg?t=91)](https://youtu.be/iUbxpQ9mjEg?t=91)) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
+  [Chapter 1](https://youtu.be/iUbxpQ9mjEg?t=91) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
 
 # Chapter 2 - setting up (continued)
-  [Chapter 2]([https://youtu.be/iUbxpQ9mjEg?t=499)](https://youtu.be/iUbxpQ9mjEg?t=499)) continues the setting up of R and RStudio and explains how to set up a project, and why it is best practice to do so.
+  [Chapter 2](https://youtu.be/iUbxpQ9mjEg?t=499) continues the setting up of R and RStudio and explains how to set up a project, and why it is best practice to do so.
 
-If you plan to follow along, all the data you need for the session is [here]([https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip).](https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip)
+If you plan to follow along, all the data you need for the session is [here](https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip)
 
 Download it, unzip it and save the three files it contains to your hard drive in a folder you can find later.
 
@@ -25,7 +25,7 @@ From here on we are writing and running code.
 The code used in each session is set out below, and you are welcome to copy it into your scripts, but it's usually best to type it yourself, rather than pasting it, so you start to build up some muscle memory of writing the code you will use a lot in interrogating your data.
 
 # Chapter 3 - importing data
-  [Chapter 3]([https://youtu.be/iUbxpQ9mjEg?t=1406)](https://youtu.be/iUbxpQ9mjEg?t=1406)) is where we start importing the data and exploring it.
+  [Chapter 3](https://youtu.be/iUbxpQ9mjEg?t=1406) is where we start importing the data and exploring it.
 
 ```{r}
 library(tidyverse)
@@ -48,7 +48,7 @@ fac %>% count(parentCompanyName, sort = TRUE)
 ```
 
 # Chapter 4 analysing your data
-  [Chapter 4]([https://youtu.be/iUbxpQ9mjEg?t=1798)](https://youtu.be/iUbxpQ9mjEg?t=1798)) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
+  [Chapter 4](https://youtu.be/iUbxpQ9mjEg?t=1798) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
 
 ```{r eval=FALSE, include = TRUE}
 
@@ -60,7 +60,7 @@ E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
 ```
 
 # Chapter 5 filtering (continued)
-  [Chapter 5]([https://youtu.be/iUbxpQ9mjEg?t=2672)](https://youtu.be/iUbxpQ9mjEg?t=2672)) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
+  [Chapter 5](https://youtu.be/iUbxpQ9mjEg?t=2672) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
 
 ```{r eval=FALSE, include=TRUE}
 rel <- read_csv("releases.csv")
@@ -96,7 +96,7 @@ NON_CO2_sector_list <- rel %>%
 ```
 
 # Chapter 6 Enhance your data by joining two dataframes and adding a new calculation
-In [Chapter 6]([https://youtu.be/iUbxpQ9mjEg?t=3154)](https://youtu.be/iUbxpQ9mjEg?t=3154)) we join two dataframes together to allow us to do some more detailed analysis. 
+In [Chapter 6](https://youtu.be/iUbxpQ9mjEg?t=3154) we join two dataframes together to allow us to do some more detailed analysis. 
 
 Let's begin by creating a list of industrial sectors which are NOT emitting CO2. Here's the code - see if you can work out what each line is doing - 
 
@@ -233,7 +233,7 @@ This way of using `str_detect` to find any string in a list is a bit confusing a
 
 
 # Chapter 7 making elegant graphics with ggplot
-[Chapter 7]([https://youtu.be/iUbxpQ9mjEg?t=3442)](https://youtu.be/iUbxpQ9mjEg?t=3442)) starts to show you the power and flexibility of `ggplot` so you can begin to create graphs.
+[Chapter 7](https://youtu.be/iUbxpQ9mjEg?t=3442) starts to show you the power and flexibility of `ggplot` so you can begin to create graphs.
 
 This chapter is self-contained, in that you don't have to re-run all the code we've used before. If you're starting here, you need to read in your two main dataframes:
 
@@ -310,4 +310,4 @@ but in this case, we added a line `theme(axis.text.x = element_text(angle = 90, 
 This is how one learns new tricks in R - and unlike Excel, you don't need to watch an instructional video: a line of code will often be all you need. And when you have time, you stop to look at exactly what's going on in the code you're using - then you can try varying some of the instructions to see what happens. 
 
 # Chapter 8 Getting Help
-This brings us neatly to [Chapter8]([https://youtu.be/iUbxpQ9mjEg?t=3818)](https://youtu.be/iUbxpQ9mjEg?t=3818)) where is advice on how to get help, within R itself, and on the web in general.
+This brings us neatly to [Chapter8](https://youtu.be/iUbxpQ9mjEg?t=3818) which contains advice on how to get help, within R itself, and on the web in general.
