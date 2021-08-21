@@ -1,4 +1,4 @@
-## Introduction to R for journalists 
+# Introduction to R for journalists 
 (prepared for the European Journalism Centre in December 2020)
 
 The training is intended to combine an introductory video with material the learner can follow along during the session and later.
@@ -6,13 +6,13 @@ The training is intended to combine an introductory video with material the lear
 The video is [here]([https://youtu.be/iUbxpQ9mjEg)
 It lasts 73 minutes and includes explanations of why journalists would use R, and the basics of the RStudio IDE.
 
-# Introduction
+## Introduction
   [Intro](https://youtu.be/iUbxpQ9mjEg?t=0) is the general introduction explaining the usefulness of R
 
-# Chapter 1 - RStudio 
+## Chapter 1 - RStudio 
   [Chapter 1](https://youtu.be/iUbxpQ9mjEg?t=91) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
 
-# Chapter 2 - setting up (continued)
+## Chapter 2 - setting up (continued)
   [Chapter 2](https://youtu.be/iUbxpQ9mjEg?t=499) continues the setting up of R and RStudio and explains how to set up a project, and why it is best practice to do so.
 
 If you plan to follow along, all the data you need for the session is [here](https://github.com/Stonepeople/-NISData-Training/blob/main/data.zip)
@@ -117,7 +117,7 @@ n_distinct(rel$mainActivityName)
 
 ```
 
-Let's have another quick summary of it - let's see how much pollution each industry (mainActivityName) is responsible for. We use the `count()` function as before, but instead of just counting how many times each industry is mentioned, we put `wt =` meaning we want a Weighted Total. In other words, it will add up all the mentions of each industrial activity multiplied by the number of kilograms of pollutant emitted. We sort in descending order - and we can use T instead of typing the whole word, TRUE. (`T` and `TRUE`, by the way, are "reserved" terms in R - you can't use them for anything else - so you can't name a data frame TRUE, for example. There is a shortish list of reserved terms which are there to avoid confusion and failed code...
+Let's have another quick summary of it - let's see how much pollution each industry (mainActivityName) is responsible for. We use the `count()` function as before, but instead of just counting how many times each industry is mentioned, we put `wt =` meaning we want a Weighted Total. In other words, it will add up all the mentions of each industrial activity multiplied by the number of kilograms of pollutant emitted. We sort in descending order - and we can use T instead of typing the whole word, TRUE. (`T` and `TRUE`, by the way, are "reserved" terms in R - you can't use them for anything else - so you can't name a data frame TRUE, for example. There is a shortish list of reserved terms which are there to avoid confusion and failed code...)
 
 If we're looking at the data in search of patterns and simple analysis, we will probably run a series of `count()` instructions - 
 
