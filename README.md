@@ -176,7 +176,8 @@ In [Chapter 6](https://youtu.be/iUbxpQ9mjEg?t=3154) we join two dataframes toget
 
 Let's begin by creating a list of industrial sectors which are NOT emitting CO2. Here's the code - see if you can work out what each line is doing - 
 
-```{r eval=FALSE, include=TRUE}
+```{r}
+{eval=FALSE, include=TRUE}
 NON_CO2_sector_list <- rel %>%
   filter(!str_detect(pollutantName, "dioxide")) %>%
   group_by(countryCode, pollutantName, mainActivityName) %>%
