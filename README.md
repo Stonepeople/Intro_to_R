@@ -1,7 +1,7 @@
 # Introduction to R for journalists 
-prepared for the [European Journalism Centre](https://www.youtube.com/channel/UCkftXiUHGFBCPsBKd9uGbRA) New Impact Summit follow-up sessions in December 2020
+prepared for the [European Journalism Centre](https://www.youtube.com/channel/UCkftXiUHGFBCPsBKd9uGbRA) News Impact Summit online follow-up sessions in December 2020
 
-The training is intended to combine an introductory video with material the learner can see being used in the video and then follow - either alongside the video tutorials or later.
+The training is intended to combine an introductory video with material the learner can see being used in the video and download and follow themselves - either alongside the video tutorials or later.
 
 The complete video is [here]([https://youtu.be/iUbxpQ9mjEg)
 It lasts 73 minutes and includes explanations of why journalists would use R, and the basics of the RStudio IDE. You will probably find it more digestible to watch in chapters:
