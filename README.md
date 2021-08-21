@@ -27,25 +27,63 @@ The code used in each session is set out below, and you are welcome to copy it i
 # Chapter 3 - importing data
   [Chapter 3](https://youtu.be/iUbxpQ9mjEg?t=1406) is where we start importing the data and exploring it.
 
+First we run the tidyverse set of packages for this session. It's easy to forget this step - but you need to tell R what packages to run for every session. If you switch to another project without closing R, you will still need to tell it what packages to run for the new project. 
+
 ```{r}
 library(tidyverse)
+```
+Now we need to read in the data, starting with the `facilities.csv` dataframe - which should be in the project folder you created for this lesson.
 
+```{r}
 fac <- read_csv("facilities.csv")
+```
+It should appear when it's loaded as an "object" in your Environment pane - top right of RStudio. 
 
+You can give it any name you like - fac is nice and short, and is fairly clear what it refers to. In choosing the name the most important thing to think about is your future self, re-using the code in a few months' time and wondering what everything means!
+
+If you click on the name `fac` in the Environment pane the dataframe will open in another pane, looking a bit like a spreadsheet. You can examined it, if you want, as you would a spreadsheet. But now that we're working in a scripted program, it's quite good to get some new habits, and make the most of what simple written commands can do for you. (When I first started using R I quickly realised that I was addicted to looking at my data in a spreadsheet, clicking and scrolling to see what was in it, using the filter menu to see what values were in my freshly opened dataset. So I had to force myself to look at my data in a new way.)
+
+First question you might ask yourself - what's in my columns - ie, what are the variables called?
+
+Type and run this command:
+```{r}
 names(fac)
+```
+A list of names appears in the console. Another way to look at your data is to ask R to summarise it - 
 
+```{r}
 summary(fac)
+```
+This quickly looks at every column, counts up the number of missing values, and does a basic statistical analysis of any column containing numbers - maximum, minimum, mean etc. It's quite hard to read it all in the console. So you might like this summary - which is part of the tidyverse suite: 
 
+```{r}
 glimpse(fac)
+```
+As you see, this "prints" the list of columns as a table, telling you what type of data each column contains, and showing a sample of the first few values in each column. 
 
+What about seeing a summary of all the values in a particular column? How many different ones are there?  
+
+```{r}
 n_distinct(fac$countryCode)
+```
+n_distinct() counts the number of distinct values in a column. We tell R which one by calling the name of the data frame, and the name of the column, with the $ to separate the two
+
+```{r}
 
 unique(fac$countryCode)
-
+```
+unique() asks R to print a list of one of each value. But we can go a step further with this line of code:
+```{r}
 fac %>% count(countryCode, sort = TRUE)
+```
+In English this is saying to R - take the dataframe fac, THEN count how many times each country code is listed in it. sort = TRUE asks it to sort in descending order. 
+The `%>%`, which you can insert with `CTRL + SHIFT + M` goes at the end of a line of code, and tells R there's a further instruction to come, which has to be performed on whatever you've already done.
 
+Before you type this line - see if you can work out what it's going to do... 
+```{r}
 fac %>% count(parentCompanyName, sort = TRUE)
 ```
+
 
 # Chapter 4 analysing your data
   [Chapter 4](https://youtu.be/iUbxpQ9mjEg?t=1798) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
@@ -59,35 +97,73 @@ E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
 
 ```
 
-# Chapter 5 filtering (continued)
+# Chapter 5 filtering and analysing your data
+
   [Chapter 5](https://youtu.be/iUbxpQ9mjEg?t=2672) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
+  
+  Now let's read in another of the datasets we imported at the start - the pollutant release data. 
 
 ```{r eval=FALSE, include=TRUE}
+
 rel <- read_csv("releases.csv")
 
+```
+Take a quick look at it, as we did with `fac`:
+
+```{r}
 names(rel)
 
 n_distinct(rel$mainActivityName)
 
+```
+
+Let's have another quick summary of it - let's see how much pollution each industry (mainActivityName) is responsible for. We use the `count()` function as before, but instead of just counting how many times each industry is mentioned, we put `wt =` meaning we want a Weighted Total. In other words, it will add up all the mentions of each industrial activity multiplied by the number of kilograms of pollutant emitted. We sort in descending order - and we can use T instead of typing the whole word, TRUE. (`T` and `TRUE`, by the way, are "reserved" terms in R - you can't use them for anything else - so you can't name a data frame TRUE, for example. There is a shortish list of reserved terms which are there to avoid confusion and failed code...
+
+If we're looking at the data in search of patterns and simple analysis, we will probably run a series of `count()` instructions - 
+
+```{r}
 rel %>% count(mainActivityName, wt = totalPollutantQuantityKg, sort = T)
 
 rel %>% count(pollutantName, wt = totalPollutantQuantityKg, sort = T)
 
 rel %>% count(mainActivityName,  pollutantName, wt = totalPollutantQuantityKg, sort = T)
 
+```
+As you will have seen, the results of each of these counts is reported in the console - in other words, it disappears from view as we run more code, and it will disappear completely from our hard drive once we end our session - though the beauty of scripted languages is that everything we have done in this session can be rerun from the saved copy of the script when we next open it - we don't have to type it all again. 
+
+Now we're going to do a bit more analysis, and this time we're going to get R to create a new object which will appear in the Global Environment list, top right: 
+
+Let's see which country has been emitting the most CO2. This is going to be the R equivalent of making a pivot table in Excel
+
+Here's what the next code block does - 
+it creates a new object or mini dataframe, taking the `rel` dataframe we just read in. And then...
+it filters it - taking only the rows containing "Carbon Dioxide" in the `pollutantName` column. And then...
+groups the rows by countryName and parentCompanyName. And then
+summarises - adds up the totalPollutantQuantity for the resulting groups. And then..
+arranges them in descending order of total_release
+
+Here is the R version of all that:
+
+```{r}
 CO2_country_list <- rel %>%
   filter(pollutantName == "Carbon dioxide") %>%
   group_by(countryCode, parentCompanyName) %>%
   summarise(total_release = sum(totalPollutantQuantityKg)) %>%
   arrange(desc(total_release))
+```
 
+Now try to work out what this block is going to do - then copy it into your script and run it: 
 
+```{r}
 CO2_sector_list <- rel %>%
   filter(pollutantName == "Carbon dioxide") %>%
   group_by(countryCode, mainActivityName) %>%
   summarise(total_release = sum(totalPollutantQuantityKg)) %>%
   arrange(desc(total_release))
+```
+This next block takes everything EXCEPT CO2 and does the same kind of grouped analysis:
 
+```{r}
 NON_CO2_sector_list <- rel %>%
   filter(!pollutantName == "Carbon dioxide") %>%
   group_by(countryCode, pollutantName, mainActivityName) %>%
@@ -116,7 +192,7 @@ We group by countryCode, pollutanName and mainActivityName and then create a new
 
 Now, before we do a new example - we need to cover something which we didn't have time to put in the video.  
 
-# Chapter 6A = using lists and %in% to do more complex filters
+# Chapter 6A Using lists and %in% to do more complex filters
 
 By now you're probably getting into the swing of copying the code we're using, and so we didn't record this as a video demonstration. 
 
