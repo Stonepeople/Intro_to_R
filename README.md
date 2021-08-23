@@ -1,5 +1,5 @@
 # Introduction to R for journalists 
-prepared for the [European Journalism Centre](https://www.youtube.com/channel/UCkftXiUHGFBCPsBKd9uGbRA) News Impact Summit online follow-up sessions in December 2020
+(Prepared for the [European Journalism Centre](https://www.youtube.com/channel/UCkftXiUHGFBCPsBKd9uGbRA) News Impact Summit online follow-up sessions in December 2020)
 
 The training is intended to combine an introductory video with material the learner can see being used in the video and download and follow themselves - either alongside the video tutorials or later.
 
