@@ -24,8 +24,7 @@ It's easiest if you follow the instructions for creating a project and then save
 From here on we are writing and running code.
 The code used in each session is set out below, and you are welcome to copy it into your scripts, but it's usually best to type it yourself, rather than pasting it, so you start to build up some muscle memory of writing the code you will use a lot in interrogating your data.
 
-### Chapter 3 - importing data
-  [Chapter 3](https://youtu.be/iUbxpQ9mjEg?t=1406) is where we start importing the data and exploring it.
+
 
 First we run the tidyverse set of packages for this session. It's easy to forget this step - but you need to tell R what packages to run for every session. If you switch to another project without closing R, you will still need to tell it what packages to run for the new project. 
 
@@ -83,12 +82,14 @@ Before you type this line - see if you can work out what it's going to do...
 ```{r}
 fac %>% count(parentCompanyName, sort = TRUE)
 ```
-
-
-### Chapter 4 analysing your data
-  [Chapter 4](https://youtu.be/iUbxpQ9mjEg?t=1798) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
-
-```{r eval=FALSE, include = TRUE}
+### Chapter 3 - more about importing data
+  [Chapter 3](https://youtu.be/iUbxpQ9mjEg?t=1406) is a closer look at importing data, including the options available depending on how your data is encoded. You probably only need to look at this chapter if you are having trouble with foreign character sets and/or the delimiting character between column entries.
+  
+  We also look at file paths - something which can be very frsutrating when you can't find the file you want to import. And we also import an xlsx file - which involves using the package `readxl`.
+  
+  The code used in this chapter is: 
+  
+  ```{r eval=FALSE, include = TRUE}
 
 fac2 <- read_csv("~/facilities.csv",
                        locale = locale(encoding = "ISO-8859-1"))
@@ -97,10 +98,10 @@ E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
 
 ```
 
-### Chapter 5 filtering and analysing your data
 
-  [Chapter 5](https://youtu.be/iUbxpQ9mjEg?t=2672) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
-  
+### Chapter 4 analysing your data
+  [Chapter 4](https://youtu.be/iUbxpQ9mjEg?t=1798) is about making the equivalent of a pivot table, and using a filter to view only the data you want to analyse
+
   Now let's read in another of the datasets we imported at the start - the pollutant release data. 
 
 ```{r eval=FALSE, include=TRUE}
@@ -152,7 +153,8 @@ CO2_country_list <- rel %>%
   arrange(desc(total_release))
 ```
 
-Now try to work out what this block is going to do - then copy it into your script and run it: 
+Now we reuse that code to do another operation - look at the pollution by different industrial sectors: 
+you can save time by copying and pasting the last block of code, but replacing `parentCompanyName` with `mainActivityName`: 
 
 ```{r}
 CO2_sector_list <- rel %>%
@@ -161,7 +163,7 @@ CO2_sector_list <- rel %>%
   summarise(total_release = sum(totalPollutantQuantityKg)) %>%
   arrange(desc(total_release))
 ```
-This next block takes everything EXCEPT CO2 and does the same kind of grouped analysis:
+This next block takes everything EXCEPT CO2 and does the same kind of grouped analysis. Again, if you want to save typing time, copy, paste and edit the code block so it looks like this:
 
 ```{r}
 NON_CO2_sector_list <- rel %>%
@@ -171,8 +173,13 @@ NON_CO2_sector_list <- rel %>%
   arrange(desc(total_release))
 ```
 
-### Chapter 6 Enhance your data by joining two dataframes and adding a new calculation
-In [Chapter 6](https://youtu.be/iUbxpQ9mjEg?t=3154) we join two dataframes together to allow us to do some more detailed analysis. 
+### Chapter 5 filtering and analysing your data
+
+  [Chapter 5](https://youtu.be/iUbxpQ9mjEg?t=2672) goes into a more complex, but very powerful, element of filtering which allows you to filter by parts of a word, or for lists of terms.
+  
+  We need to do this, in this example, to find "dioxide" wherever it appears.
+
+
 
 Let's begin by creating a list of industrial sectors which are NOT emitting CO2. Here's the code - see if you can work out what each line is doing:
 
@@ -192,7 +199,7 @@ We group by countryCode, pollutanName and mainActivityName and then create a new
 
 Now, before we do a new example - we need to cover something which we didn't have time to put in the video.  
 
-### Chapter 6A Using lists and %in% to do more complex filters
+### Using lists and %in% to do more complex filters (not part of the video tutorial)
 
 By now you're probably getting into the swing of copying the code we're using, and so we didn't record this as a video demonstration. 
 
@@ -252,7 +259,12 @@ The `dplyr` package which is doing the joining needs to know which two frames to
 
 To read more about dplyr's joins, type `?dplyr::join` into the Console. This brings up the relevant help page in the Help pane (bottom right of standard RStudio view).
 
+
+
 Now we can work out the emission per sq km with the `mutate` command. We take the joined dataframe and ask R to add a new column, which will be the total_release divided by the tot_area_km_sq - and make a new dataframe with the helpful title `EU_releases_by_country_sq_km` while we're at it. 
+
+### Chapter 6 Enhance your data by joining two dataframes and adding a new calculation
+In [Chapter 6](https://youtu.be/iUbxpQ9mjEg?t=3154) we join two dataframes together to allow us to do some more detailed analysis. 
 
 ```{r}
 EU_releases_by_country_sq_km <- joined %>%
@@ -268,9 +280,6 @@ EU_releases_by_country_sq_km <- left_join(EU_releases_by_country, EU_areas) %>%
   mutate(release_per_sq_km = total_releases / tot_area_km_sq )
 
 ```
-
-
-
 That works fine where there's a simple 2-letter code like the CountryCode. But we've already seen that there are some columns in our data which have whole phrases in them. We have already used `str_detect` to find strings such as "poultry" - if you want to filter for any row in the mainActivityName column containing "poultry" - 
 
 ```{r}
@@ -306,6 +315,7 @@ poultry_or_pigs <- rel %>%
 Instead of using `%in%` to find matches in a list, because we're using `str_detect` we tell R to look in mainActivityName as usual, but then we have to tell it to `paste` the values from our pigs_poultry object, and then find either value in any one row - and to make it look for EITHER value, we need to tell R to use the Boolean symbol for either - the pipe `|`: the command `collapse` tells it what symbol we are using for either/or (yes, even though the `|` doesn't appear in our data at all!)
 
 This way of using `str_detect` to find any string in a list is a bit confusing at first - it took me a long time to find it. The code you need to write to do what seems quite a simple task is easy to forget if you don't use it every day - and that makes it a good example of how, the more you use R, the more snippets of useful code will end up in your own script library. So, if you vaguely remember using `collapse` at some point, you can find it again, maybe weeks later, by using `Edit > Find in Files` and setting RStudio to find `collapse` in any of your R scripts. Your saved scripts will normally only contain code that worked, so as you use R, you are building up a library of code which works - and can easily be found and used again - you just need to remember a key word that RStudio's search engine can find - so, although you might forget `collapse` you can still call up all the times you used `str_detect` and then find one use which jogs your memory. I use this all the time, often finding code I haven't used for many months, but which is sitting there waiting for me to look for it and use it again!
+
 
 
 ### Chapter 7 making elegant graphics with ggplot
@@ -387,3 +397,15 @@ This is how one learns new tricks in R - and unlike Excel, you don't need to wat
 
 ### Chapter 8 Getting Help
 This brings us neatly to [Chapter8](https://youtu.be/iUbxpQ9mjEg?t=3818) which contains advice on how to get help, within R itself, and on the web in general.
+
+We demonstrate using the `?` in front of a verb to ask for the help menu - `?geom_bar()` for example
+
+We look at `Edit>Find in Files` in RStudio to search through your own library of code that you have built up by using R 
+
+We looked too at finding help on the R documentation site [rdrr.io](hrrps://rdrr.io) - an excellent resource which goes beyond the built-in R help files because it searches projects on github too. 
+
+We look at [tidyverse.org](https://tidyverse.org), the official tidyverse website. 
+
+And the last few minutes of the session we look at free online resources to help you learn even more R. 
+
+If you would like to download this guide in pdf format, follow this link: 
