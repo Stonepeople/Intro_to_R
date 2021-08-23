@@ -408,4 +408,27 @@ We look at [tidyverse.org](https://tidyverse.org), the official tidyverse websit
 
 And the last few minutes of the session we look at free online resources to help you learn even more R. 
 
-If you would like to download this guide in pdf format, follow this link: 
+## Getting further help
+
+
+[R4ds.had.co.nz](https://R4ds.had.co.nz) is a free, online version of Hadley Wickham's guide to the Tidyverse "R for Data Science. It contains code and exercises and is well worth spending time with.
+
+#tidytuesday is well worth following on twitter - every Tuesday a group called RforDataScience put out a dataset for the community to play with. Over the next day or two people tweet their visualisations - it's a great way of seeing how others can use the same data. In addition there are often screencasts on youtube (same search term) showing how to analyse the data - the best are the ones by [David Robinson (@drob)](https://www.youtube.com/user/safe4democracy/videos) from Datacamp. This is like a free R masterclass!
+
+[r-bloggers.com](https://www.r-bloggers.com/) - a searchable site, which also produces a daily newsletter email
+Youtube (search for package by name)
+[Rstudio.com](https://www.rstudio.com/) for cheatsheets and news about RStudio
+[Stackoverflow.com](https://stackoverflow.com/) - searchable knowledge base on most code languages
+[Rseek.org](https://rseek.org/) - a search engine adapted to concentrate on R-related questions
+[Rdrr.io](https://rdrr.io/)  - a really well-organised repository of documentation about every R package
+You can do paid courses, sometimes with a free introductory period at
+- Datacamp 
+- Udacity 
+- Coursera
+- Lynda 
+- Codeacademy - [learn.r](https://www.codecademy.com/learn/learn-r) is part of Codeacademy's excellent offer
+- [Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource
+
+
+As you dig into graphics with ggplot a whole new world opens up. [Cedric Scherer's tutorials](https://www.cedricscherer.com/tags/ggplot2/) are superb.
+And don’t miss the “BBC Visual and Data Journalism cookbook for R graphics”, which includes code and a BBC-created R package for publication-quality ggplot2 graphics: [https://bbc.github.io/rcookbook](https://bbc.github.io/rcookbook)
