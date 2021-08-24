@@ -137,6 +137,9 @@ fac <- fac %>%
   
   ```
   Try a new count of `yearOfStart` and you should see about 60000 NAs and no 1900s.
+  
+  ### Data types
+  Within this relatively quick introductory session we don't talk about the different types of data that a variable could contain. At the very start it may not seem important, but the more you use R/RStudio the more likely you are to need to understand what data type you are dealing with, and be able to change it. `character` strings and numbers are just the start. If you want to start finding out more, go to [this tutorial](https://resbaz.github.io/2014-r-materials/lessons/01-intro_r/data-structures.html) or google something like "data types R" for other guides and tutorials. 
 
 
 ### Chapter 4 analysing your data
