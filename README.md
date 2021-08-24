@@ -97,6 +97,46 @@ fac2 <- read_csv("~/facilities.csv",
 E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
 
 ```
+### Dealing with dates
+In the video, we saw that `read_csv` wasn't coping with dates as we wanted. We promised to cover that separately. This part is therefore not in the video. 
+
+If you run `glimpse(fac)` to see what the variables are, you will see that `read_csv()` has interpreted the column `dateOfStartOfOperation` as `dttm`. This means date and time. We only need to read date. But what follows is useful whenever you decide after importing a dataframe that you need to change the category of one or more columns. In this case we're going to change the date category to simple `ymd`. We're going to use the lubridate package. Lubridate (a typical tidyverse package pun about lubricating R's handling of dates) is installed with all the tidyverse packages, but doesn't run when you call `library(tidyverse)` - you have to call it explicitly with `library(lubridate)`
+
+So run that - `library(lubridate`. 
+
+Now we are going to tell R to write over our dataframe `fac` by taking the existing dataframe, and then creating a new column. Except neither dataframe, nor column is "new" - because we are wanting to update an existing dataframe, and amend an existing column, we just use the same names, and R will write over them, replacing old with new. 
+
+(If we want to create a brand new dataframe, or new column, just use a new name. It's worth knowing this - sometimes you might want to create a new column or dataframe while keeping the old one - just give it a new name: `fac1` would be enough in this case. But bear in mind your future self - use names that mean something, or write a note in the script with a line beginning ## so it's just a comment, rather than an instruction.)
+
+So here's the script - overwriting `fac` and overwriting the original `dateOfStartOperation`:
+
+```{r}
+fac <- fac %>%
+  mutate(dateOfStartOfOperation = ymd(dateOfStartOfOperation))
+```
+`mutate` is a function in the tidyverse package `dplyr` which you come to use a lot. The syntax is `mutate(nameOfVariable = function(existingVariable)`. Depending on what you are doing, you can add a brand new column (which will go at the end - the far right of the frame) or overwrite an existing variable by using the same name, which is what we did here. 
+
+If you run `glimpse(fac)` now you will see that `dateOfStartOfOperation` is now `<date>` instead of `<dttm>`. We are now going to create a new column - let's use lubridate to pull out just the year from the `dateOfStartOfOperation`
+
+See if you can work out the code - assuming that `year` is the function to use. 
+
+The answer is:
+
+```{r}
+fac <- fac %>%
+  mutate(yearOfStart = year(dateOfStartOfOperation))
+```
+
+If you run that ok, you should find your new column at the right hand end. By the way, try counting the various years and you'll see several thousand occurences of 1900. Let's assume that those companies didn't all start in 1900. It might be better to lump them all the values which are essentially unknown by coding them as `NA`. 
+
+To do that we use `mutate` again
+
+```{r}
+fac <- fac %>% 
+  mutate(yearOfStart = na_if(yearOfStart, 1900))
+  
+  ```
+  Try a new count of `yearOfStart` and you should see about 60000 NAs and no 1900s.
 
 
 ### Chapter 4 analysing your data
@@ -421,13 +461,16 @@ Youtube (search for package by name)
 [Stackoverflow.com](https://stackoverflow.com/) - searchable knowledge base on most code languages
 [Rseek.org](https://rseek.org/) - a search engine adapted to concentrate on R-related questions
 [Rdrr.io](https://rdrr.io/)  - a really well-organised repository of documentation about every R package
+[Free Resources](https://www.learnr4free.com/en/index.html)
+[Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource
+
+
 You can do paid courses, sometimes with a free introductory period at
 - Datacamp 
 - Udacity 
 - Coursera
 - Lynda 
 - Codeacademy - [learn.r](https://www.codecademy.com/learn/learn-r) is part of Codeacademy's excellent offer
-- [Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource
 
 
 As you dig into graphics with ggplot a whole new world opens up. [Cedric Scherer's tutorials](https://www.cedricscherer.com/tags/ggplot2/) are superb.
