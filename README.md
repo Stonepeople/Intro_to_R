@@ -102,7 +102,7 @@ In the video, we saw that `read_csv` wasn't coping with dates as we wanted. We p
 
 If you run `glimpse(fac)` to see what the variables are, you will see that `read_csv()` has interpreted the column `dateOfStartOfOperation` as `dttm`. This means date and time. We only need to read date. But what follows is useful whenever you decide after importing a dataframe that you need to change the category of one or more columns. In this case we're going to change the date category to simple `ymd`. We're going to use the lubridate package. Lubridate (a typical tidyverse package pun about lubricating R's handling of dates) is installed with all the tidyverse packages, but doesn't run when you call `library(tidyverse)` - you have to call it explicitly with `library(lubridate)`
 
-So run that - `library(lubridate`. 
+So run that - `library(lubridate)`. 
 
 Now we are going to tell R to write over our dataframe `fac` by taking the existing dataframe, and then creating a new column. Except neither dataframe, nor column is "new" - because we are wanting to update an existing dataframe, and amend an existing column, we just use the same names, and R will write over them, replacing old with new. 
 
