@@ -359,7 +359,19 @@ Instead of using `%in%` to find matches in a list, because we're using `str_dete
 
 This way of using `str_detect` to find any string in a list is a bit confusing at first - it took me a long time to find it. The code you need to write to do what seems quite a simple task is easy to forget if you don't use it every day - and that makes it a good example of how, the more you use R, the more snippets of useful code will end up in your own script library. So, if you vaguely remember using `collapse` at some point, you can find it again, maybe weeks later, by using `Edit > Find in Files` and setting RStudio to find `collapse` in any of your R scripts. Your saved scripts will normally only contain code that worked, so as you use R, you are building up a library of code which works - and can easily be found and used again - you just need to remember a key word that RStudio's search engine can find - so, although you might forget `collapse` you can still call up all the times you used `str_detect` and then find one use which jogs your memory. I use this all the time, often finding code I haven't used for many months, but which is sitting there waiting for me to look for it and use it again!
 
+### Saving your work
 
+At this point we have created several objects, which we can see in the Environment Pane. But they're virtual - in the sense that they exist only in our computer's memory. When we log out and turn off our computer they will be gone. But not forever! If you save your R script the objects and the analysis (and the charts when you create those) can all be recreated by running the script any time. But that may not be enough - perhaps you want to retain one of the tables, or you want to be able to share it with a colleague - in that case you can save any of those data frames with a short line of code. Let's say we want to save the table "EU_releases_by_country_sq_km" we created at the beginning of chapter 6... Here's the code: 
+
+```{r}
+write_csv(EU_releases_by_country_sq_km, "EU_releases.csv")
+
+```
+That will save a csv file with the name you gave it - in this case "EU_releases" - in the project folder. If you want to specify a different folder you can set the file path in the code instruction - but as I noted earlier, I hate trying to remember and type long file paths accurately, so I just save to the project and move the file later if necessary. 
+
+You may notice, perhaps by letting R do autofill for you, that there's also a write.csv() and a read.csv() instruction. Those two are base R verbs - they work, but slightly differently. If you want to experiment try writing the csv both ways - see what the difference is, including the difference in speed for a larger csv file. 
+
+We're about to come to making graphics - but since we're talking about saving objects, it's worth saying that when you create graphics with RStudio and you want to save them you can use the GUI provided in the RStudio plots pane (bottom right of standard RStudio screen) to export your plot in the format of your choice. As with all the point and click features of RStudio it is writing the code for you, and if you make a copy of the code which appears in the RStudio console you can insert that in your code to spare yourself the pointing and clicking next time - and to learn the instructions needed to carry out these tasks. 
 
 ### Chapter 7 making elegant graphics with ggplot
 [Chapter 7](https://youtu.be/iUbxpQ9mjEg?t=3442) starts to show you the power and flexibility of `ggplot` so you can begin to create graphs.
