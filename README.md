@@ -477,8 +477,9 @@ Youtube (search for package by name)
 [Rseek.org](https://rseek.org/) - a search engine adapted to concentrate on R-related questions
 [Rdrr.io](https://rdrr.io/)  - a really well-organised repository of documentation about every R package
 [Free Resources](https://www.learnr4free.com/en/index.html)
-[Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource
-[The Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) is another free resource, still in development, which shows you how to do the things you need to do. 
+[Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource. 
+
+And [The Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) is another free resource, still in development, which shows you how to do the things you need to do. 
 
 
 You can do paid courses, sometimes with a free introductory period at
