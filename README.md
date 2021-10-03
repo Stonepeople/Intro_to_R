@@ -8,6 +8,9 @@ It lasts 73 minutes and includes explanations of why journalists would use R, an
 
 ## Introduction
   [Intro](https://youtu.be/iUbxpQ9mjEg?t=0) is the general introduction explaining the usefulness of R
+  
+## Another way to make a start
+If you want to try R and RStudio without downloading the programs and the data listed below you can also work on these learning materials in a browser. You will need to create an [RStudio.cloud account](https://rstudio.cloud) - take the free option. Then you can follow all the lessons with the relevant data by following this [link](https://rstudio.cloud/spaces/177801/join?access_code=2sH1BPc5ajuGKhZQ2DQpP%2B1UFeOpzBDWa57mL2Pn). NB you should make a copy of the assignment and work on that, not on the template itself.
 
 ### Chapter 1 - RStudio 
   [Chapter 1](https://youtu.be/iUbxpQ9mjEg?t=91) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
