@@ -395,7 +395,6 @@ rel2 <- rel %>%
   group_by(pollutantCode, countryCode) %>%
   summarise(totalKG = sum(totalPollutantQuantityKg)) %>%
   arrange(desc(totalKG)) %>%
-  mutate()
   head(50)
 ```
 
