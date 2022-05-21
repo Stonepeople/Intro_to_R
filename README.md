@@ -474,15 +474,15 @@ And the last few minutes of the session we look at free online resources to help
 
 #tidytuesday is well worth following on twitter - every Tuesday a group called RforDataScience put out a dataset for the community to play with. Over the next day or two people tweet their visualisations - it's a great way of seeing how others can use the same data. In addition there are often screencasts on youtube (same search term) showing how to analyse the data - the best are the ones by [David Robinson (@drob)](https://www.youtube.com/user/safe4democracy/videos) from Datacamp. This is like a free R masterclass! in May 2022 [Oscar Baruffa](https://twitter.com/OscarBaruffa) turned the indexed library of screencasts into a user-friendly, searchable website - [rscreencasts.com](https://www.rscreencasts.com/?ref=blogpost)
 
-[r-bloggers.com](https://www.r-bloggers.com/) - a searchable site, which also produces a daily newsletter email
+-[r-bloggers.com](https://www.r-bloggers.com/) - a searchable site, which also produces a daily newsletter email
 Youtube (search for package by name)
-[Rstudio.com](https://www.rstudio.com/) for cheatsheets and news about RStudio
-[Stackoverflow.com](https://stackoverflow.com/) - searchable knowledge base on most code languages
-[Rseek.org](https://rseek.org/) - a search engine adapted to concentrate on R-related questions
-[Rdrr.io](https://rdrr.io/)  - a really well-organised repository of documentation about every R package
-[Free Resources](https://www.learnr4free.com/en/index.html)
-[Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource. 
-[The Big Book of R](https://www.bigbookofr.com/) links to a huge range of free resources to help you learn R. It is well-maintained and contains links to a wealth of amazing material
+-[Rstudio.com](https://www.rstudio.com/) for cheatsheets and news about RStudio
+-[Stackoverflow.com](https://stackoverflow.com/) - searchable knowledge base on most code languages
+-[Rseek.org](https://rseek.org/) - a search engine adapted to concentrate on R-related questions
+-[Rdrr.io](https://rdrr.io/)  - a really well-organised repository of documentation about every R package
+-[Free Resources](https://www.learnr4free.com/en/index.html)
+-[Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource. 
+-[The Big Book of R](https://www.bigbookofr.com/) links to a huge range of free resources to help you learn R. It is well-maintained and contains links to a wealth of amazing material
 
 And [The Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) is another free resource, still in development, which shows you how to do the things you need to do. 
 
