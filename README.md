@@ -482,6 +482,7 @@ Youtube (search for package by name)
 [Rdrr.io](https://rdrr.io/)  - a really well-organised repository of documentation about every R package
 [Free Resources](https://www.learnr4free.com/en/index.html)
 [Rforjournalists.com](https://learn.r-journalism.com/en/) is yet another excellent, free, resource. 
+[The Big Book of R](https://www.bigbookofr.com/) links to a huge range of free resources to help you learn R. It is well-maintained and contains links to a wealth of amazing material
 
 And [The Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) is another free resource, still in development, which shows you how to do the things you need to do. 
 
