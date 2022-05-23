@@ -303,8 +303,8 @@ joined <- left_join(EU_releases_by_country, EU_areas)
 
 The `dplyr` package which is doing the joining needs to know which two frames to join (EU_releases_by_country and EU_areas) and, in theory, which variable to use to make the join. If you leave that blank, as I did here, `dplyr` will guess, and it is usually correct. But if you want to specify which variable is the common one, use `by = "variableName"`
 
-To read more about dplyr's joins, type `?dplyr::join` into the Console. This brings up the relevant help page in the Help pane (bottom right of standard RStudio view).
-
+To read more about dplyr's joins, type `?dplyr::join` into the Console. This brings up the relevant help page in the Help pane (bottom right of standard RStudio view). You can look at some visual explanations of joining [here](https://github.com/Stonepeople/Intro_to_R/blob/main/R_Joining_handout.pdf) or just google "dplyr
+join" online to see many more examples and explanations.
 
 
 Now we can work out the emission per sq km with the `mutate` command. We take the joined dataframe and ask R to add a new column, which will be the total_release divided by the tot_area_km_sq - and make a new dataframe with the helpful title `EU_releases_by_country_sq_km` while we're at it. 
