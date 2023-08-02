@@ -76,14 +76,17 @@ unique(fac$countryCode)
 ```
 unique() asks R to print a list of one of each value. But we can go a step further with this line of code:
 ```{r}
-fac %>% count(countryCode, sort = TRUE)
+fac |> count(countryCode, sort = TRUE)
 ```
 In English this is saying to R - take the dataframe fac, THEN count how many times each country code is listed in it. sort = TRUE asks it to sort in descending order. 
-The `%>%`, which you can insert with `CTRL + SHIFT + M` goes at the end of a line of code, and tells R there's a further instruction to come, which has to be performed on whatever you've already done.
+The `|>`, which you can insert with `CTRL + SHIFT + M` goes at the end of a line of code, and tells R there's a further instruction to come, which has to be performed on whatever you've already done. 
 
-Before you type this line - see if you can work out what it's going to do... 
+(Until 2022 the pipe was "spelled" '%>%' which was part of the magrittr package. Now '|>' is built in to base R and does the same job. Both "spellings" of the pipe work, and you can choose which one you get when you type CTRL+SHIFT+M in a setting within RStudio) 
+
+Before you type this line - see if you can work out what it's going to do...
+
 ```{r}
-fac %>% count(parentCompanyName, sort = TRUE)
+fac |> count(parentCompanyName, sort = TRUE)
 ```
 ### Chapter 3 - more about importing data
   [Chapter 3](https://youtu.be/iUbxpQ9mjEg?t=1406) is a closer look at importing data, including the options available depending on how your data is encoded. You probably only need to look at this chapter if you are having trouble with foreign character sets and/or the delimiting character between column entries.
@@ -114,7 +117,7 @@ Now we are going to tell R to write over our dataframe `fac` by taking the exist
 So here's the script - overwriting `fac` and overwriting the original `dateOfStartOperation`:
 
 ```{r}
-fac <- fac %>%
+fac <- fac |>
   mutate(dateOfStartOfOperation = ymd(dateOfStartOfOperation))
 ```
 `mutate` is a function in the tidyverse package `dplyr` which you come to use a lot. The syntax is `mutate(nameOfVariable = function(existingVariable)`. Depending on what you are doing, you can add a brand new column (which will go at the end - the far right of the frame) or overwrite an existing variable by using the same name, which is what we did here. 
@@ -126,7 +129,7 @@ See if you can work out the code - assuming that `year` is the function to use.
 The answer is:
 
 ```{r}
-fac <- fac %>%
+fac <- fac |>
   mutate(yearOfStart = year(dateOfStartOfOperation))
 ```
 
@@ -135,7 +138,7 @@ If you run that ok, you should find your new column at the right hand end. By th
 To do that we use `mutate` again
 
 ```{r}
-fac <- fac %>% 
+fac <- fac |> 
   mutate(yearOfStart = na_if(yearOfStart, 1900))
   
   ```
@@ -169,11 +172,11 @@ Let's have another quick summary of it - let's see how much pollution each indus
 If we're looking at the data in search of patterns and simple analysis, we will probably run a series of `count()` instructions - 
 
 ```{r}
-rel %>% count(mainActivityName, wt = totalPollutantQuantityKg, sort = T)
+rel |> count(mainActivityName, wt = totalPollutantQuantityKg, sort = T)
 
-rel %>% count(pollutantName, wt = totalPollutantQuantityKg, sort = T)
+rel |> count(pollutantName, wt = totalPollutantQuantityKg, sort = T)
 
-rel %>% count(mainActivityName,  pollutantName, wt = totalPollutantQuantityKg, sort = T)
+rel |> count(mainActivityName,  pollutantName, wt = totalPollutantQuantityKg, sort = T)
 
 ```
 As you will have seen, the results of each of these counts is reported in the console - in other words, it disappears from view as we run more code, and it will disappear completely from our hard drive once we end our session - though the beauty of scripted languages is that everything we have done in this session can be rerun from the saved copy of the script when we next open it - we don't have to type it all again. 
@@ -192,10 +195,10 @@ arranges them in descending order of total_release
 Here is the R version of all that:
 
 ```{r}
-CO2_country_list <- rel %>%
-  filter(pollutantName == "Carbon dioxide") %>%
-  group_by(countryCode, parentCompanyName) %>%
-  summarise(total_release = sum(totalPollutantQuantityKg)) %>%
+CO2_country_list <- rel |>
+  filter(pollutantName == "Carbon dioxide") |>
+  group_by(countryCode, parentCompanyName) |>
+  summarise(total_release = sum(totalPollutantQuantityKg)) |>
   arrange(desc(total_release))
 ```
 
@@ -203,19 +206,19 @@ Now we reuse that code to do another operation - look at the pollution by differ
 you can save time by copying and pasting the last block of code, but replacing `parentCompanyName` with `mainActivityName`: 
 
 ```{r}
-CO2_sector_list <- rel %>%
-  filter(pollutantName == "Carbon dioxide") %>%
-  group_by(countryCode, mainActivityName) %>%
-  summarise(total_release = sum(totalPollutantQuantityKg)) %>%
+CO2_sector_list <- rel |>
+  filter(pollutantName == "Carbon dioxide") |>
+  group_by(countryCode, mainActivityName) |>
+  summarise(total_release = sum(totalPollutantQuantityKg)) |>
   arrange(desc(total_release))
 ```
 This next block takes everything EXCEPT CO2 and does the same kind of grouped analysis. Again, if you want to save typing time, copy, paste and edit the code block so it looks like this:
 
 ```{r}
-NON_CO2_sector_list <- rel %>%
-  filter(!pollutantName == "Carbon dioxide") %>%
-  group_by(countryCode, pollutantName, mainActivityName) %>%
-  summarise(total_release = sum(totalPollutantQuantityKg)) %>%
+NON_CO2_sector_list <- rel |>
+  filter(!pollutantName == "Carbon dioxide") |>
+  group_by(countryCode, pollutantName, mainActivityName) |>
+  summarise(total_release = sum(totalPollutantQuantityKg)) |>
   arrange(desc(total_release))
 ```
 
@@ -230,10 +233,10 @@ NON_CO2_sector_list <- rel %>%
 Let's begin by creating a list of industrial sectors which are NOT emitting CO2. Here's the code - see if you can work out what each line is doing:
 
 ```{r}
-NON_CO2_sector_list <- rel %>%
-  filter(!str_detect(pollutantName, "dioxide")) %>%
-  group_by(countryCode, pollutantName, mainActivityName) %>%
-  summarise(total_release = sum(totalPollutantQuantityKg)) %>%
+NON_CO2_sector_list <- rel |>
+  filter(!str_detect(pollutantName, "dioxide")) |>
+  group_by(countryCode, pollutantName, mainActivityName) |>
+  summarise(total_release = sum(totalPollutantQuantityKg)) |>
   arrange(desc(total_release))
 ```
 
@@ -264,7 +267,7 @@ You will see EU_members appear in the Environment panel as an "object". What's t
 Now that you've recorded the list with the label "EU_members" you can call that instead of typing or pasting the whole list every time you need it. Try this bit of code: 
 
 ```{r}
-EU_releases <- rel %>%
+EU_releases <- rel |>
   filter(countryCode %in% EU_members)
 ```
 
@@ -273,9 +276,9 @@ The `%in%` means, in effect, find any of the strings listed in the chosen column
 So we can now create a new dataframe based on `EU_releases` - 
 
 ```{r}
-EU_releases_by_country <- EU_releases %>%
-  group_by(countryCode) %>%
-  summarise(total_releases = sum(totalPollutantQuantityKg)) %>%
+EU_releases_by_country <- EU_releases |>
+  group_by(countryCode) |>
+  summarise(total_releases = sum(totalPollutantQuantityKg)) |>
   arrange(desc(total_releases))
 ```
 
@@ -291,7 +294,7 @@ areas <- read_csv("areas.csv")
 It is a list of most of the world's territories by size. Now we need to pull out the EU members. You may be able to work out now what code you need, but here is mine to compare yours with - 
 
 ```{r}
-EU_areas <- areas %>%
+EU_areas <- areas |>
   filter(countryCode %in% EU_members)
 ```
 
@@ -313,23 +316,23 @@ Now we can work out the emission per sq km with the `mutate` command. We take th
 In [Chapter 6](https://youtu.be/iUbxpQ9mjEg?t=3154) we join two dataframes together to allow us to do some more detailed analysis. 
 
 ```{r}
-EU_releases_by_country_sq_km <- joined %>%
+EU_releases_by_country_sq_km <- joined |>
   mutate(release_per_sq_km = total_releases / tot_area_km_sq )
 ```
 
-At this point in your R learning journey you will probably want to do things step by step, partly because if something goes wrong it's easy to see where. But as you get more experience (and more confident) you can write longer code blocks - linking the steps with the pipe ` %>% ` as you go: this is exactly what the pipe is good for. 
+At this point in your R learning journey you will probably want to do things step by step, partly because if something goes wrong it's easy to see where. But as you get more experience (and more confident) you can write longer code blocks - linking the steps with the pipe ` |> ` as you go: this is exactly what the pipe is good for. 
 
 Here we can make the new dataframe from the joined frames and add the calculated column "release_per_sq_km" in one shortish block: 
 
 ```{r}
-EU_releases_by_country_sq_km <- left_join(EU_releases_by_country, EU_areas) %>%
+EU_releases_by_country_sq_km <- left_join(EU_releases_by_country, EU_areas) |>
   mutate(release_per_sq_km = total_releases / tot_area_km_sq )
 
 ```
 That works fine where there's a simple 2-letter code like the CountryCode. But we've already seen that there are some columns in our data which have whole phrases in them. We have already used `str_detect` to find strings such as "poultry" - if you want to filter for any row in the mainActivityName column containing "poultry" - 
 
 ```{r}
-fac %>% 
+fac |> 
 filter(str_detect(mainActivityName, "poultry"))
 
 ```
@@ -353,7 +356,7 @@ Run that line to make it appear in your environment pane.
 Now use it to ask R to find pigs or poultry in the mainActivityName column in the `rel` dataframe: 
 
 ```{r}
-poultry_or_pigs <- rel %>%
+poultry_or_pigs <- rel |>
   filter(str_detect(mainActivityName, paste(pigs_poultry, collapse = "|")))
 
 ```
@@ -392,11 +395,11 @@ rel <- read_csv("releases.csv")
 Then, for the sake of an example graph, we will create a new dataframe based on "rel" which looks at the the 50 highest amounts of pollutant in each country in the year 2018. 
 
 ```{r}
-rel2 <- rel %>%
-  filter(reportingYear == 2018) %>%
-  group_by(pollutantCode, countryCode) %>%
-  summarise(totalKG = sum(totalPollutantQuantityKg)) %>%
-  arrange(desc(totalKG)) %>%
+rel2 <- rel |>
+  filter(reportingYear == 2018) |>
+  group_by(pollutantCode, countryCode) |>
+  summarise(totalKG = sum(totalPollutantQuantityKg)) |>
+  arrange(desc(totalKG)) |>
   head(50)
 ```
 
@@ -411,7 +414,7 @@ ggplot(rel2) +
 
 ```
 
-First important thing to note is that instead of using the now familiar pipe ` %>% ` to tell R there's another instruction to come, we have to use `+`. This is a historical quirk of `ggplot` and you just have to get used to it!
+First important thing to note is that instead of using the now familiar pipe ` |> ` to tell R there's another instruction to come, we have to use `+`. This is a historical quirk of `ggplot` and you just have to get used to it!
 
 `ggplot` looks a bit complicated at first, especially for those of us (me included) who are used to dragging and dropping variables in pivot tables to make charts in Excel or Googlesheets. But it is worth sticking with it, because `ggplot` is much more powerful and flexible once you get the hang of it - and is brilliantly documented, with hundreds of tutorials and examples online. 
 
