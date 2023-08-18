@@ -473,7 +473,7 @@ And the last few minutes of the session we look at free online resources to help
 ## Getting further help
 
 
-[R4ds.hadley.nz](https://r4ds.hadley.nz/)) is a free, online version of the 2nd edition of Hadley Wickham's guide to the Tidyverse "R for Data Science". It contains code and exercises and is well worth spending time with.
+[R4ds.hadley.nz](https://r4ds.hadley.nz/) is a free, online version of the 2nd edition of Hadley Wickham's guide to the Tidyverse "R for Data Science". It contains code and exercises and is well worth spending time with.
 
 #tidytuesday is well worth following on twitter - every Tuesday a group called RforDataScience put out a dataset for the community to play with. Over the next day or two people tweet their visualisations - it's a great way of seeing how others can use the same data. In addition there are often screencasts on youtube (same search term) showing how to analyse the data - the best are the ones by [David Robinson (@drob)](https://www.youtube.com/user/safe4democracy/videos) from Datacamp. This is like a free R masterclass! in May 2022 [Oscar Baruffa](https://twitter.com/OscarBaruffa) turned the indexed library of screencasts into a user-friendly, searchable website - [rscreencasts.com](https://www.rscreencasts.com/?ref=blogpost)  
 
