@@ -15,6 +15,8 @@ If you want to try R and RStudio without downloading the programs and the data l
 ### Chapter 1 - RStudio 
   [Chapter 1](https://youtu.be/iUbxpQ9mjEg?t=91) introduces you to R and RStudio and explains how to get set up for the first time, including downloading and running packages.
 
+  Since writing the first version of this tutorial, a new open source alternative to RStudio has been produced - it's called Positron, and you can find out more about it [here]("https://github.com/posit-dev/positron")
+
 ### Chapter 2 - setting up (continued)
   [Chapter 2](https://youtu.be/iUbxpQ9mjEg?t=499) continues the setting up of R and RStudio and explains how to set up a project, and why it is best practice to do so.
 
@@ -106,9 +108,7 @@ E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
 ### Dealing with dates
 In the video, we saw that `read_csv` wasn't coping with dates as we wanted. We promised to cover that separately. This part is therefore not in the video. 
 
-If you run `glimpse(fac)` to see what the variables are, you will see that `read_csv()` has interpreted the column `dateOfStartOfOperation` as `dttm`. This means date and time. We only need to read date. But what follows is useful whenever you decide after importing a dataframe that you need to change the category of one or more columns. In this case we're going to change the date category to simple `ymd`. We're going to use the lubridate package. Lubridate (a typical tidyverse package pun about lubricating R's handling of dates) is installed with all the tidyverse packages, but doesn't run when you call `library(tidyverse)` - you have to call it explicitly with `library(lubridate)`
-
-So run that - `library(lubridate)`. 
+If you run `glimpse(fac)` to see what the variables are, you will see that `read_csv()` has interpreted the column `dateOfStartOfOperation` as `dttm`. This means date and time. We only need to read date. But what follows is useful whenever you decide after importing a dataframe that you need to change the category of one or more columns. In this case we're going to change the date category to simple `ymd`. We're going to use the lubridate package. Lubridate (a typical tidyverse package pun about lubricating R's handling of dates) is installed with all the tidyverse packages, and it will run when you call `library(tidyverse)`.
 
 Now we are going to tell R to write over our dataframe `fac` by taking the existing dataframe, and then creating a new column. Except neither dataframe, nor column is "new" - because we are wanting to update an existing dataframe, and amend an existing column, we just use the same names, and R will write over them, replacing old with new. 
 
@@ -375,7 +375,7 @@ At this point we have created several objects, which we can see in the Environme
 write_csv(EU_releases_by_country_sq_km, "EU_releases.csv")
 
 ```
-That will save a csv file with the name you gave it - in this case "EU_releases" - in the project folder. If you want to specify a different folder you can set the file path in the code instruction - but as I noted earlier, I hate trying to remember and type long file paths accurately, so I just save to the project and move the file later if necessary. 
+That will save a csv file with the name you gave it - in this case "EU_releases" - in the project folder. If you want to specify a different folder you can set the file path in the code instruction - but as I noted earlier, I hate trying to remember and type long file paths accurately, so I just save to the project and move the file later if necessary. If you like, you can add after the comma na = "". This will mean any cell with an NA in it will be left blank in your new csv file. 
 
 You may notice, perhaps by letting R do autofill for you, that there's also a write.csv() and a read.csv() instruction. Those two are base R verbs - they work, but slightly differently. If you want to experiment try writing the csv both ways - see what the difference is, including the difference in speed for a larger csv file. 
 
