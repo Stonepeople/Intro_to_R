@@ -36,11 +36,13 @@ First we run the tidyverse set of packages for this session. It's easy to forget
 ```{r}
 library(tidyverse)
 ```
+
 Now we need to read in the data, starting with the `facilities.csv` dataframe - which should be in the project folder you created for this lesson.
 
 ```{r}
 fac <- read_csv("facilities.csv")
 ```
+
 It should appear when it's loaded as an "object" in your Environment pane - top right of RStudio. 
 
 You can give it any name you like - fac is nice and short, and is fairly clear what it refers to. In choosing the name the most important thing to think about is your future self, re-using the code in a few months' time and wondering what everything means!
@@ -53,16 +55,19 @@ Type and run this command:
 ```{r}
 names(fac)
 ```
+
 A list of names appears in the console. Another way to look at your data is to ask R to summarise it - 
 
 ```{r}
 summary(fac)
 ```
+
 This quickly looks at every column, counts up the number of missing values, and does a basic statistical analysis of any column containing numbers - maximum, minimum, mean etc. It's quite hard to read it all in the console. So you might like this summary - which is part of the tidyverse suite: 
 
 ```{r}
 glimpse(fac)
 ```
+
 As you see, this "prints" the list of columns as a table, telling you what type of data each column contains, and showing a sample of the first few values in each column. 
 
 What about seeing a summary of all the values in a particular column? How many different ones are there?  
@@ -70,16 +75,19 @@ What about seeing a summary of all the values in a particular column? How many d
 ```{r}
 n_distinct(fac$countryCode)
 ```
+
 n_distinct() counts the number of distinct values in a column. We tell R which one by calling the name of the data frame, and the name of the column, with the $ to separate the two
 
 ```{r}
-
 unique(fac$countryCode)
 ```
+
 unique() asks R to print a list of one of each value. But we can go a step further with this line of code:
+
 ```{r}
 fac |> count(countryCode, sort = TRUE)
 ```
+
 In English this is saying to R - take the dataframe fac, THEN count how many times each country code is listed in it. sort = TRUE asks it to sort in descending order. 
 The `|>`, which you can insert with `CTRL + SHIFT + M` goes at the end of a line of code, and tells R there's a further instruction to come, which has to be performed on whatever you've already done. 
 
@@ -90,6 +98,7 @@ Before you type this line - see if you can work out what it's going to do...
 ```{r}
 fac |> count(parentCompanyName, sort = TRUE)
 ```
+
 ### Chapter 3 - more about importing data
   [Chapter 3](https://youtu.be/iUbxpQ9mjEg?t=1406) is a closer look at importing data, including the options available depending on how your data is encoded. You probably only need to look at this chapter if you are having trouble with foreign character sets and/or the delimiting character between column entries.
   
@@ -97,14 +106,14 @@ fac |> count(parentCompanyName, sort = TRUE)
   
   The code used in this chapter is: 
   
-  ```{r eval=FALSE, include = TRUE}
+```{r eval=FALSE, include = TRUE}
 
 fac2 <- read_csv("~/facilities.csv",
                        locale = locale(encoding = "ISO-8859-1"))
 
 E_PRTR_facilities <- readxl::read_excel("~E-PRTR facilities.xlsx")
-
 ```
+
 ### Dealing with dates
 In the video, we saw that `read_csv` wasn't coping with dates as we wanted. We promised to cover that separately. This part is therefore not in the video. 
 
@@ -120,6 +129,7 @@ So here's the script - overwriting `fac` and overwriting the original `dateOfSta
 fac <- fac |>
   mutate(dateOfStartOfOperation = ymd(dateOfStartOfOperation))
 ```
+
 `mutate` is a function in the tidyverse package `dplyr` which you come to use a lot. The syntax is `mutate(nameOfVariable = function(existingVariable)`. Depending on what you are doing, you can add a brand new column (which will go at the end - the far right of the frame) or overwrite an existing variable by using the same name, which is what we did here. 
 
 If you run `glimpse(fac)` now you will see that `dateOfStartOfOperation` is now `<date>` instead of `<dttm>`. We are now going to create a new column - let's use lubridate to pull out just the year from the `dateOfStartOfOperation`
@@ -140,8 +150,8 @@ To do that we use `mutate` again
 ```{r}
 fac <- fac |> 
   mutate(yearOfStart = na_if(yearOfStart, 1900))
-  
-  ```
+```
+
   Try a new count of `yearOfStart` and you should see about 60000 NAs and no 1900s.
   
   ### Data types
@@ -154,17 +164,15 @@ fac <- fac |>
   Now let's read in another of the datasets we imported at the start - the pollutant release data. 
 
 ```{r eval=FALSE, include=TRUE}
-
 rel <- read_csv("releases.csv")
-
 ```
+
 Take a quick look at it, as we did with `fac`:
 
 ```{r}
 names(rel)
 
 n_distinct(rel$mainActivityName)
-
 ```
 
 Let's have another quick summary of it - let's see how much pollution each industry (mainActivityName) is responsible for. We use the `count()` function as before, but instead of just counting how many times each industry is mentioned, we put `wt =` meaning we want a Weighted Total. In other words, it will add up all the mentions of each industrial activity multiplied by the number of kilograms of pollutant emitted. We sort in descending order - and we can use T instead of typing the whole word, TRUE. (`T` and `TRUE`, by the way, are "reserved" terms in R - you can't use them for anything else - so you can't name a data frame TRUE, for example. There is a shortish list of reserved terms which are there to avoid confusion and failed code...)
@@ -177,8 +185,8 @@ rel |> count(mainActivityName, wt = totalPollutantQuantityKg, sort = T)
 rel |> count(pollutantName, wt = totalPollutantQuantityKg, sort = T)
 
 rel |> count(mainActivityName,  pollutantName, wt = totalPollutantQuantityKg, sort = T)
-
 ```
+
 As you will have seen, the results of each of these counts is reported in the console - in other words, it disappears from view as we run more code, and it will disappear completely from our hard drive once we end our session - though the beauty of scripted languages is that everything we have done in this session can be rerun from the saved copy of the script when we next open it - we don't have to type it all again. 
 
 Now we're going to do a bit more analysis, and this time we're going to get R to create a new object which will appear in the Global Environment list, top right: 
@@ -212,6 +220,7 @@ CO2_sector_list <- rel |>
   summarise(total_release = sum(totalPollutantQuantityKg)) |>
   arrange(desc(total_release))
 ```
+
 This next block takes everything EXCEPT CO2 and does the same kind of grouped analysis. Again, if you want to save typing time, copy, paste and edit the code block so it looks like this:
 
 ```{r}
@@ -259,7 +268,6 @@ Let's run this bit of code -
 ```{r}
 EU_members <- c("BE", "NL", "LU", "FR", "DE", "IT", "IE", "DK", "SE", "SI", "HR", "PL", "HU", "AT", "GR", "FI","CZ",
 "SK", "ES", "PT", "EE", "LT", "LV", "BG", "RO", "CY", "MT")
-
 ```
 
 You will see EU_members appear in the Environment panel as an "object". What's the c doing before the open parenthesis? It stands for "concatenation" and tells R that there's more than one value inside the parentheses - it contains a list, in other words. 
@@ -288,7 +296,6 @@ Let's read it in -
 
 ```{r}
 areas <- read_csv("areas.csv")
-
 ```
 
 It is a list of most of the world's territories by size. Now we need to pull out the EU members. You may be able to work out now what code you need, but here is mine to compare yours with - 
@@ -329,12 +336,12 @@ EU_releases_by_country_sq_km <- left_join(EU_releases_by_country, EU_areas) |>
   mutate(release_per_sq_km = total_releases / tot_area_km_sq )
 
 ```
+
 That works fine where there's a simple 2-letter code like the CountryCode. But we've already seen that there are some columns in our data which have whole phrases in them. We have already used `str_detect` to find strings such as "poultry" - if you want to filter for any row in the mainActivityName column containing "poultry" - 
 
 ```{r}
 fac |> 
 filter(str_detect(mainActivityName, "poultry"))
-
 ```
 
 But what if we want to find either "pigs" OR "poultry"? If those words were the only values in the rows we are looking for we could just use something like -
@@ -351,6 +358,7 @@ First let's create the list of words to look for:
 ```{r}
 pigs_poultry <- c("pigs", "poultry")
 ```
+
 Run that line to make it appear in your environment pane. 
 
 Now use it to ask R to find pigs or poultry in the mainActivityName column in the `rel` dataframe: 
@@ -358,7 +366,6 @@ Now use it to ask R to find pigs or poultry in the mainActivityName column in th
 ```{r}
 poultry_or_pigs <- rel |>
   filter(str_detect(mainActivityName, paste(pigs_poultry, collapse = "|")))
-
 ```
 
 Instead of using `%in%` to find matches in a list, because we're using `str_detect` we tell R to look in mainActivityName as usual, but then we have to tell it to `paste` the values from our pigs_poultry object, and then find either value in any one row - and to make it look for EITHER value, we need to tell R to use the Boolean symbol for either - the pipe `|`: the command `collapse` tells it what symbol we are using for either/or (yes, even though the `|` doesn't appear in our data at all!)
@@ -373,11 +380,11 @@ At this point we have created several objects, which we can see in the Environme
 
 ```{r}
 write_csv(EU_releases_by_country_sq_km, "EU_releases.csv")
-
 ```
+
 That will save a csv file with the name you gave it - in this case "EU_releases" - in the project folder. If you want to specify a different folder you can set the file path in the code instruction - but as I noted earlier, I hate trying to remember and type long file paths accurately, so I just save to the project and move the file later if necessary. If you like, you can add after the comma na = "". This will mean any cell with an NA in it will be left blank in your new csv file. 
 
-You may notice, perhaps by letting R do autofill for you, that there's also a write.csv() and a read.csv() instruction. Those two are base R verbs - they work, but slightly differently. If you want to experiment try writing the csv both ways - see what the difference is, including the difference in speed for a larger csv file. 
+You may notice, perhaps by letting R do autofill for you, that there's also a write.csv() and a read.csv() instruction. Those two are base R verbs - they work, but slightly differently. If you want to experiment try writing the csv both ways - see what the difference is, including the difference in speed for a larger csv file.
 
 If you are working with other colleagues and you are going to use Excel, you can also export it directly as .xlsx from R. By doing so, the columns will have the same format that they have in our tibble and will not depend on the format that Excel creates them to have.
 
@@ -389,6 +396,7 @@ library(openxlsx)
 write.xlsx(EU_releases_by_country_sq_km, "EU_releases.xlsx")
 ```
 
+
 We're about to come to making graphics - but since we're talking about saving objects, it's worth saying that when you create graphics with RStudio and you want to save them you can use the GUI provided in the RStudio plots pane (bottom right of standard RStudio screen) to export your plot in the format of your choice. As with all the point and click features of RStudio it is writing the code for you, and if you make a copy of the code which appears in the RStudio console you can insert that in your code to spare yourself the pointing and clicking next time - and to learn the instructions needed to carry out these tasks. 
 
 ### Chapter 7 making elegant graphics with ggplot
@@ -397,9 +405,8 @@ We're about to come to making graphics - but since we're talking about saving ob
 This chapter is self-contained, in that you don't have to re-run all the code we've used before. If you're starting here, you need to read in your two main dataframes:
 
 ```{r}
-fac <- read_csv("facilities.csv")
-rel <- read_csv("releases.csv")
-
+fac <- read_csv("data/facilities.csv")
+rel <- read_csv("data/releases.csv")
 ```
 
 Then, for the sake of an example graph, we will create a new dataframe based on "rel" which looks at the the 50 highest amounts of pollutant in each country in the year 2018. 
@@ -421,7 +428,6 @@ ggplot(rel2) +
          aes(countryCode, totalKG) +
          geom_col() +
          coord_flip()
-
 ```
 
 First important thing to note is that instead of using the now familiar pipe ` |> ` to tell R there's another instruction to come, we have to use `+`. This is a historical quirk of `ggplot` and you just have to get used to it!
@@ -440,7 +446,6 @@ In the video we use this code
 
 ```{r}
 esquisse::esquisser(rel2)
-
 ```
 
 to start sketching our `rel2` dataframe into some shape. 
@@ -455,7 +460,6 @@ ggplot(rel2) +
 ```
 
 A further bit of dragging and dropping produces this - 
-
 
 ```{r}
 ggplot(rel2) +
